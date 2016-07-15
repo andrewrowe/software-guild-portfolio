@@ -1,0 +1,72 @@
+﻿@model DVDLibrary.ViewModels.DVDInfoVM
+
+@{
+    ViewBag.Title = "ConfirmDelete";
+}
+
+<div class="container">
+    <br />
+    <h2>Are you sure you want to delete @Model.DVD.Title?</h2>
+</div>
+<div class="container">
+    <div style="text-align: center">
+        <img src="@Model.DVD.URL" class="img-thumbnail" alt="@Model.DVD.Title" width="235" height="350" />
+    </div>
+    <h4>Basic Info</h4>
+    <table class="table table-bordered col-lg-12 col-xs-10">
+        <thead>
+        <tr>
+            <th style="text-align: center">@Html.DisplayNameFor(m => m.DVD.ReleaseDate)</th>
+            <th style="text-align: center">@Html.DisplayNameFor(m => m.DVD.MPAARating)</th>
+            <th style="text-align: center">@Html.DisplayNameFor(m => m.DVD.Studio)</th>
+            <th style="text-align: center">@Html.DisplayNameFor(m => m.DVD.UserRating)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="text-align: center">@Html.DisplayFor(m => m.DVD.ReleaseDate)</td>
+            <td style="text-align: center">@Html.DisplayFor(m => m.DVD.MPAARating)</td>
+            <td style="text-align: center">@Html.DisplayFor(m => m.DVD.Studio)</td>
+            <td style="text-align: center">
+                @for (int i = 0; i < Model.DVD.UserRating; i++)
+            {
+                <img src="~/Content/Images/star.png" width="20" height="20" />
+            }
+        </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br />
+<div class="container">
+    <h4>Cast Members</h4>
+    <table class="table table-striped col-lg-12 col-xs-10">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(m => m.Personnel[0].Name)</th>
+                <th>@Html.DisplayNameFor(m => m.Personnel[0].Role)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var person in Model.Personnel)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => person.Name)</td>
+                    <td>@Html.DisplayFor(m => person.Role)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    @using (Html.BeginForm("DeleteDVD", "Home", null, FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.DVD.Title)
+        @Html.HiddenFor(m => m.DVD.MPAARating)
+        @Html.HiddenFor(m => m.DVD.Studio)
+        @Html.HiddenFor(m => m.DVD.ReleaseDate)
+            <input type="submit" class="btn alert-danger" value="Delete"/>
+            @Html.ActionLink("Cancel", "Index", "Home", new {@class = "alert-info btn"})
+    }
+</div>

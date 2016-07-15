@@ -1,0 +1,96 @@
+﻿@model List<DVDLibrary.Models.DVD>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div>
+    <h2>DVD Library</h2>
+</div>
+<div class="container">
+    <div style="text-align: right">
+        @Html.ActionLink("Picture Mode", "DVDPictures", "Home", null, new { @class = "btn btn-info" })
+    </div>
+    <div class="table-responsive container">
+        <table class="table table-striped col-lg-12 col-xs-10 sieve tablesorter" id="myDVDs">
+            <thead class="table-bordered">
+                <tr>
+                    <th style="text-align: center">Thumbnail</th>
+                    <th style="text-align: center">Title</th>
+                    <th style="text-align: center">Release Date</th>
+                    <th style="text-align: center">MPAA Rating</th>
+                    <th style="text-align: center">Studio</th>
+                    <th style="text-align: center">Andrew's Rating</th>
+                    <th style="text-align: center">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var dvd in Model)
+                {
+                    <tr>
+                        <td style="text-align: center"><img src="@Html.DisplayFor(m => dvd.URL)" width="18" height="28" /></td>
+                        <td style="text-align: center">@Html.DisplayFor(m => dvd.Title)</td>
+                        <td style="text-align: center">@Html.DisplayFor(m => dvd.ReleaseDate)</td>
+                        <td style="text-align: center">@Html.DisplayFor(m => dvd.MPAARating)</td>
+                        <td style="text-align: center">@Html.DisplayFor(m => dvd.Studio)</td>
+                        <td style="text-align: center">
+                            @for (int i = 0; i < dvd.UserRating; i++)
+                        {
+                            <img src="~/Content/Images/star.png" width="20" height="20" />
+                        }
+                    </td>
+                    <td style="text-align: center">
+                    @Html.ActionLink("View", "DVDInfo", "Home", new { id = dvd.Title.Trim() }, null) |
+                    @Html.ActionLink("Remove", "ConfirmDelete", "Home", new { id = dvd.Title.Trim() }, null)
+                </td>
+            </tr>
+                }*@
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+    <script src="~/Scripts/app/jquery.sieve.min.js"></script>
+    <script src="~/Scripts/app/jquery.tablesorter.js"></script>
+    <script src="~/Scripts/app/jquery.tablesorter.widget.js"></script>
+    <script src="~/Scripts/app/jquery.index.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $("table.sieve").sieve();
+            });
+    </script>
+    <script>
+        $(document)
+            .ready(function() {
+                $.extend($.tablesorter.themes.bootstrap,
+                {
+                    table: 'table table-striped table-hover',
+                    header: 'bootstrap-header',
+                    footerRow: '',
+                    footerCells: '',
+                    icons: '',
+                    sortNone: 'bootstrap-icon-unsorted',
+                    sortAsc: 'icon-chevron-up',
+                    sortDesc: 'icon-chevron-down',
+                    active: 'table-info',
+                    hover: '',
+                    filterRow: '',
+                    even: '',
+                    odd: ''
+                });
+                $("#myDVDs")
+                    .tablesorter({
+                        theme: "bootstrap",
+                        widthFixed: false,
+                        headerTemplate: '{content} {icon}',
+                        widgets: ["uitheme"]
+                    });
+            });
+    </script>
+}

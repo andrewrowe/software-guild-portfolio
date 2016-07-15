@@ -1,0 +1,82 @@
+﻿@model List<HumanResourcesWebsite.Models.Applicant>
+
+@{
+    ViewBag.Title = "Resumes";
+}
+
+@foreach (var applicant in Model)
+{
+    <div class="row">
+        <div class="col-xs-12 col-sm-9">
+            <h2>@applicant.FirstName @applicant.LastName's Resume</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-9">
+            <p>@Html.ActionLink("Select Applicant", "SelectApplicant", "Admin", new {id = applicant.Id}, new { @class = "btn btn-primary" })</p>
+            <h4>Prior Education</h4>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>School Name</th>
+                        <th>Address</th>
+                        <th>Date Started</th>
+                        <th>Date Completed</th>
+                        <th>Degree Earned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var education in applicant.Resume.PreviousEducation)
+                    {
+                        <tr>
+                            <td>@education.SchoolName</td>
+                            <td>
+                                @education.Address.StreetAddress1 @education.Address.StreetAddress2 @education.Address.City,
+                                @education.Address.State.StateAbbreviation @education.Address.ZipCode
+                            </td>
+                            <td>@education.DateStarted.Date.ToString("MM/dd/yy")</td>
+                            <td>@education.DateCompleted.Date.ToString("MM/dd/yy")</td>
+                            <td>@education.DegreeEarned</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <h4>Prior Work</h4>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Job Title</th>
+                        <th>Description</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Date Started</th>
+                        <th>Date Left</th>
+                        <th>Reason Left</th>
+                        <th>Can We Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var work in applicant.Resume.PreviousJobs)
+                    {
+                        <tr>
+                            <td>@work.CompanyName</td>
+                            <td>@work.JobTitle</td>
+                            <td>@work.JobDescription</td>
+                            <td>
+                                @work.Address.StreetAddress1 @work.Address.StreetAddress2
+                                @work.Address.City, @work.Address.State.StateAbbreviation @work.Address.ZipCode
+                            </td>
+                            <td class="col-lg-2">@work.Phone</td>
+                            <td>@work.DateStarted.Date.ToString("MM/dd/yy")</td>
+                            <td>@work.DateLeft.Date.ToString("MM/dd/yy")</td>
+                            <td>@work.ReasonLeft</td>
+                            <td>@work.CanWeContact</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

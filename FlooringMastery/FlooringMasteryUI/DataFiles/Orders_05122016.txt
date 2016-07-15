@@ -1,0 +1,2 @@
+﻿FirstName,LastName,OrderDate,OrderID,Area,ProductType,Status,State,LaborCost,MaterialCost,Tax,TotalCost
+Joe,Smith,5/12/2016,1,550,Tile,Active,PA,5,10,5,20

@@ -1,0 +1,43 @@
+﻿@using HumanResourcesWebsite.Models
+@model List<HumanResourcesWebsite.Models.Job>
+
+@{
+    ViewBag.Title = "JobListings";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9">
+        <h2>Job Listings</h2>  
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-9">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Position</th>
+                <th>Description</th>
+                <th>Availability</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var job in Model)
+            {
+                <tr>
+                    <td>@job.Title</td>
+                    <td>@job.Description</td>
+                    <td>@if (job.JobStatus == JobStatus.Open)
+                        {
+                            @Html.ActionLink("Apply", "Apply", "Jobs", new {id = job.Id}, null)
+                        }
+                        else
+                        {
+                            @job.JobStatus
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

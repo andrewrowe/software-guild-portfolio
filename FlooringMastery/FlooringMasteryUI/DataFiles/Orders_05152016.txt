@@ -1,0 +1,4 @@
+FirstName,LastName,OrderDate,OrderID,Area,ProductType,Status,State,LaborCost,MaterialCost,Tax,TotalCost
+Jack,Black,5/15/2016 12:00:00 AM,1,7000,Wood,Active,OH,33250.00,36050.00,433125.0000,502425.0000
+Andrew,Rowe,5/15/2016 12:00:00 AM,2,700,Wood,Deleted,PA,3325.00,3605.00,46777.5000,53707.5000
+Joe,Rogan,5/15/2016 12:00:00 AM,3,4000,Wood,Active,OH,19000.00,20600.00,247500.0000,287100.0000

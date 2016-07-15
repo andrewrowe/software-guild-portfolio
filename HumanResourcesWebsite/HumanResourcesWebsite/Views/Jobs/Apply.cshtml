@@ -1,0 +1,156 @@
+﻿@model HumanResourcesWebsite.Models.ViewModels.ApplicationVM
+
+@{
+    ViewBag.Title = "Apply";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-9">
+        <h2>Apply for @Html.DisplayFor(m => m.Job.Title)</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-9">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <h4>Personal Information</h4>
+            @Html.HiddenFor(m => m.Job.Id)
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Applicant.FirstName)</p>
+                @Html.LabelFor(m => m.Applicant.FirstName)
+                @Html.TextBoxFor(m => m.Applicant.FirstName, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Applicant.LastName)</p>
+                @Html.LabelFor(m => m.Applicant.LastName)
+                @Html.TextBoxFor(m => m.Applicant.LastName, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Applicant.Email)</p>
+                @Html.LabelFor(m => m.Applicant.Email)
+                @Html.EditorFor(m => m.Applicant.Email, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Applicant.Phone)</p>
+                @Html.LabelFor(m => m.Applicant.Phone)
+                @Html.EditorFor(m => m.Applicant.Phone, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Applicant.DateOfBirth)</p>
+                @Html.LabelFor(m => m.Applicant.DateOfBirth)
+                @Html.EditorFor(m => m.Applicant.DateOfBirth, new {@class = "form-control"})
+            </div>
+            <hr/>
+            <h4>Education</h4>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.SchoolName)</p>
+                @Html.LabelFor(m => m.Education.SchoolName)
+                @Html.TextBoxFor(m => m.Education.SchoolName, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.DateStarted)</p>
+                @Html.LabelFor(m => m.Education.DateStarted)
+                @Html.EditorFor(m => m.Education.DateStarted, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.DateCompleted)</p>
+                @Html.LabelFor(m => m.Education.DateCompleted)
+                @Html.EditorFor(m => m.Education.DateCompleted, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.DegreeEarned)</p>
+                @Html.LabelFor(m => m.Education.DegreeEarned)
+                @Html.TextBoxFor(m => m.Education.DegreeEarned, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.Address.StreetAddress1)</p>
+                @Html.LabelFor(m => m.Education.Address.StreetAddress1)
+                @Html.TextBoxFor(m => m.Education.Address.StreetAddress1, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Education.Address.StreetAddress2)
+                @Html.TextBoxFor(m => m.Education.Address.StreetAddress2, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.Address.City)</p>
+                @Html.LabelFor(m => m.Education.Address.City)
+                @Html.TextBoxFor(m => m.Education.Address.City, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Education.Address.State)
+                @Html.DropDownListFor(m => m.Education.Address.State.StateAbbreviation, Model.StateItems, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.Education.Address.ZipCode)</p>
+                @Html.LabelFor(m => m.Education.Address.ZipCode)
+                @Html.TextBoxFor(m => m.Education.Address.ZipCode, new {@class = "form-control"})
+            </div>
+            <hr/>
+            <h4>Work History</h4>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.CompanyName)</p>
+                @Html.LabelFor(m => m.WorkHistory.CompanyName)
+                @Html.TextBoxFor(m => m.WorkHistory.CompanyName, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.JobTitle)</p>
+                @Html.LabelFor(m => m.WorkHistory.JobTitle)
+                @Html.TextBoxFor(m => m.WorkHistory.JobTitle, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.JobDescription)</p>
+                @Html.LabelFor(m => m.WorkHistory.JobDescription)
+                @Html.TextAreaFor(m => m.WorkHistory.JobDescription, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.DateStarted)</p>
+                @Html.LabelFor(m => m.WorkHistory.DateStarted)
+                @Html.EditorFor(m => m.WorkHistory.DateStarted, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WorkHistory.DateLeft)
+                @Html.EditorFor(m => m.WorkHistory.DateLeft, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.Phone)</p>
+                @Html.LabelFor(m => m.WorkHistory.Phone)
+                @Html.TextBoxFor(m => m.WorkHistory.Phone, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.Address.StreetAddress1)</p>
+                @Html.LabelFor(m => m.WorkHistory.Address.StreetAddress1)
+                @Html.TextBoxFor(m => m.WorkHistory.Address.StreetAddress1, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WorkHistory.Address.StreetAddress2)
+                @Html.TextBoxFor(m => m.WorkHistory.Address.StreetAddress2, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.Address.City)</p>
+                @Html.LabelFor(m => m.WorkHistory.Address.City)
+                @Html.TextBoxFor(m => m.WorkHistory.Address.City, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WorkHistory.Address.State)
+                @Html.DropDownListFor(m => m.WorkHistory.Address.State.StateAbbreviation, Model.StateItems, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.Address.ZipCode)</p>
+                @Html.LabelFor(m => m.WorkHistory.Address.ZipCode)
+                @Html.TextBoxFor(m => m.WorkHistory.Address.ZipCode, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                <p>@Html.ValidationMessageFor(m => m.WorkHistory.ReasonLeft)</p>
+                @Html.LabelFor(m => m.WorkHistory.ReasonLeft)
+                @Html.TextBoxFor(m => m.WorkHistory.ReasonLeft, new {@class = "form-control"})
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.WorkHistory.CanWeContact)
+                @Html.EnumDropDownListFor(m => m.WorkHistory.CanWeContact, new {@class = "form-control"})
+            </div>
+            <button class="btn btn-primary">Save</button>
+        }
+    </div>
+</div>
+

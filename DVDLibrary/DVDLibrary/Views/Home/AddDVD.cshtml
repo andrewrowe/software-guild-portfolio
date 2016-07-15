@@ -1,0 +1,104 @@
+﻿@using System.Threading
+@using System.Web.UI.WebControls
+@using DVDLibrary.Models
+@model DVDLibrary.ViewModels.DVDInfoVM
+
+@{
+    ViewBag.Title = "AddDVD";
+}
+
+<h2>Add DVD</h2>
+
+<div class="container">
+    <div class="row">
+        @using (Html.BeginForm("AddDVD", "Home", null, FormMethod.Post, new {id = "dvdForm"}))
+        {
+            <div class="col-lg-6 col-xs-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">DVD Information</h4>
+                    </div>
+                    <div class="form-group">
+                        <label>Title</label>
+                        @Html.TextBoxFor(m => m.DVD.Title, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>Release Date</label>
+                        @Html.EditorFor(m => m.DVD.ReleaseDate, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>Studio</label>
+                        @Html.TextBoxFor(m => m.DVD.Studio, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>MPAA Rating</label>
+                        @Html.EnumDropDownListFor(m => m.DVD.MPAARating, "Select Rating", new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>Picture URL (optional)</label>
+                        @Html.TextBoxFor(m => m.DVD.URL, new {@class = "form-control"})
+                    </div>
+                    <div class="form-group">
+                        <label>User Rating</label>
+                        <p>@Html.RadioButtonFor(m => m.DVD.UserRating, 1) Garbage!
+                        @Html.RadioButtonFor(m => m.DVD.UserRating, 2) Meh...
+                        @Html.RadioButtonFor(m => m.DVD.UserRating, 3) Worth a watch 
+                        @Html.RadioButtonFor(m => m.DVD.UserRating, 4) Would recommend
+                        @Html.RadioButtonFor(m => m.DVD.UserRating, 5) CLASSIC</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xs-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Cast Information</h4>
+                    </div>
+                    <div id="castMembers">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" name="Personnel[0].Name" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <input type="text" name="Personnel[0].Role" class="form-control"/>
+                        </div>
+                    </div>
+                    <div align="right">
+                        <button type="button" class="btn btn-primary" id="btnAddCast"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    </div>
+                </div>
+            </div>
+            <div align="center">
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts 
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/app/jquery-validate-defaults.js"></script>
+    <script src="~/Scripts/app/dvdValidation.js"></script>
+    <script>
+        var index = 1;
+
+        $(document)
+            .ready(function() {
+                $('#btnAddCast')
+                    .click(function() {
+                        var data = '<div class="form-group"> <label>Name' +
+                            '</label> <input type="text" name="Personnel[' +
+                            index +
+                            '].Name" class="form-control"/>' +
+                            '</div> <div class="form-group"> <label>Role' +
+                            '</label> <input type="text" name="Personnel[' +
+                            index +
+                            '].Role" class="form-control"/> </div>';
+                        $('#castMembers').append(data);
+
+                        index++;
+                    });
+            });
+    </script>
+}

@@ -1,0 +1,17 @@
+﻿@model List<DVDLibrary.Models.DVD>
+
+@{
+    ViewBag.Title = "DVDPictures";
+}
+
+<h2>DVD Library</h2>
+
+<div style="text-align: right">
+    @Html.ActionLink("List Mode/Search", "Index", "Home", null, new {@class="btn btn-info"})
+</div>
+<div class="container img-responsive">
+        @foreach (var dvd in Model)
+        {
+            <a href="@Url.Content("DVDInfo/" + dvd.Title.Trim())"><img src="@dvd.URL" class="img-rounded" alt="@dvd.Title" height="485" width="326" class="img-rounded" /></a>
+        }
+</div>

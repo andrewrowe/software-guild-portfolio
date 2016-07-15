@@ -1,0 +1,47 @@
+﻿@model HumanResourcesWebsite.Models.ViewModels.ApplicationVM
+
+@{
+    ViewBag.Title = "EditApplicant";
+}
+
+<h2>Edit Applicant</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.Applicant.Id)
+    <div class="form-group">
+        <p>@Html.ValidationMessageFor(m => m.Applicant.FirstName)</p>
+        @Html.DisplayNameFor(m => m.Applicant.FirstName)
+        @Html.TextBoxFor(m => m.Applicant.FirstName, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        <p>@Html.ValidationMessageFor(m => m.Applicant.LastName)</p>
+        @Html.DisplayNameFor(m => m.Applicant.LastName)
+        @Html.TextBoxFor(m => m.Applicant.LastName, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        <p>@Html.ValidationMessageFor(m => m.Applicant.DateOfBirth)</p>
+        @Html.DisplayNameFor(m => m.Applicant.DateOfBirth)
+        @Html.EditorFor(m => m.Applicant.DateOfBirth, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        <p>@Html.ValidationMessageFor(m => m.Applicant.Email)</p>
+        @Html.DisplayNameFor(m => m.Applicant.Email)
+        @Html.TextBoxFor(m => m.Applicant.Email, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        <p>@Html.ValidationMessageFor(m => m.Applicant.Phone)</p>
+        @Html.DisplayNameFor(m => m.Applicant.Phone)
+        @Html.TextBoxFor(m => m.Applicant.Phone, new {@class = "form-control"})
+    </div>
+    <div class="form-group">
+        @Html.ListBoxFor(m => m.SelectedJobs, Model.JobItems, new {@class = "form-control"})
+    </div>
+    <div class="dropdown">
+        @Html.DisplayNameFor(m => m.Applicant.ApplicantStatus)
+        @Html.EnumDropDownListFor(m => m.Applicant.ApplicantStatus, new {@class = "form-control"})
+    </div>
+    <br/>
+    <button class="btn btn-primary">Save</button>
+}

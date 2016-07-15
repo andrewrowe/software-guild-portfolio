@@ -1,0 +1,14 @@
+﻿@model HumanResourcesWebsite.Models.Job
+
+@{
+    ViewBag.Title = "DeleteJob";
+}
+
+<h2>DeleteJob</h2>
+
+@using (Html.BeginForm())
+{
+    <p>Are you sure you wish to delete the job @Html.DisplayFor(m => m.Title)?</p>
+    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+    @Html.ActionLink("Cancel", "Jobs", "Admin", null, new { @class = "btn btn-sm btn-info" })
+}
