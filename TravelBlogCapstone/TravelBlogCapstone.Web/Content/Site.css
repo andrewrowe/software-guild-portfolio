@@ -1,0 +1,93 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+
+    color: #bb0000;
+}
+
+.black {
+    color: black;
+}
+
+a i {
+    font-size: 1.35em;
+    padding-right: 15px;
+}
+
+i {
+    font-size: 1.35em;
+}
+
+.modal-dialog {
+
+    width: 90%;
+
+}
+
+.user-setting {
+    font-size: 1em;
+}
+
+#biography {
+    border:1px solid black;
+    background-color: white;
+    min-height: 100px;
+}
+
+.small-width dt {
+    width:100px;
+}
+
+.dl-horizontal dd {
+    margin-left: 120px;
+}
+
+#label-biography {
+    text-align: right;
+    font-weight: bold;
+}
+
+#avatar {
+    margin-bottom: 30px;
+}
+
+#body-diplay-message {
+    min-height: 100px;
+    background-color: white;
+    padding: 15px;
+    border:1px solid black;
+}
+
+#change-bio {
+    height: 140px;
+    width: 600px
+}
+
+#answerLink {
+    float: right;
+    padding: 10px;
+}
+
+#bodyMessage {
+    min-height: 180px;
+}

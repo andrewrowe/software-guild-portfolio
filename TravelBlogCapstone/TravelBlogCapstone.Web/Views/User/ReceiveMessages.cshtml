@@ -1,0 +1,127 @@
+﻿@model List<TravelBlogCapstone.Models.Message>
+
+@{
+    ViewBag.Title = "ReceiveMessages";
+}
+
+<h2>Receive Messages</h2>
+<hr />
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8">
+        <table class="table table-responsive sieve" id="receiveMessages">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <i class="glyphicon glyphicon-share-alt red"></i> - Reply <br />
+        <i class="glyphicon glyphicon-trash" style="color:grey"></i> - Delete <br />
+
+
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script src="~/Scripts/moment.min.js"></script>
+    <script>
+        var uri = '/api/user/getReceiveMessages';
+
+
+        $(document)
+            .ready(function() {
+                loadReceiveMessages();
+            });
+
+        function loadReceiveMessages() {
+            $.getJSON(uri)
+                .done(function(data) {
+                    $('#receiveMessages tbody tr').remove();
+                    $.each(data,
+                        function(index, messageViewModel) {
+                            $(createRow(messageViewModel)).appendTo($('#receiveMessages tbody'));
+                        });
+
+                });
+        };
+
+        function createRow(receiveMessage) {
+
+            var highlight;
+            if (!receiveMessage.Message.IsRead)
+                highlight = '<tr style="background-color: #FAEBD7;">'
+            else
+                highlight = '<tr>';
+
+            return highlight +
+                '<td>' +
+                moment(receiveMessage.Message.SendDate).format('MMM Do, YYYY') +
+                '</td><td>' +
+                '<a href=@Url.Action("DisplayAnotherProfile", "User")/' +
+                receiveMessage.UserName +
+                ' class="postLink">' +
+                receiveMessage.UserName +
+                '</a>' +
+                " (" +
+                receiveMessage.Email +
+                ")" +
+                '</td><td>' +
+                '<a href=@Url.Action("DisplayAMessage", "User")/' +
+                receiveMessage.Message.Id +
+                ' class="postLink">' +
+                receiveMessage.Message.Subject +
+                '</a>' +
+                '</td><td>' +
+                '<a class="answerMessage" href=@Url.Action("AnswerAMessage", "User")/' +
+                receiveMessage.Message.Id +
+                '><i class="glyphicon glyphicon-share-alt red"></i></a><a class="deleteMessage" href="#" data-value="' +
+                receiveMessage.Message.Id +
+                '"><i class="glyphicon glyphicon-trash" style="color:grey"></i></a>' +
+                '</td></tr>';
+        };
+
+        $("#receiveMessages")
+            .on("click",
+                ".deleteMessage",
+                function(event) {
+                    if (confirm("Are you sure to delete?")) {
+                        var id = ($(this).attr("data-value"));
+                        $.ajax({
+                            url: '/api/user/deleteReceiveMessage/' + id,
+                            type: 'PUT',
+                            dataType: 'json',
+                            data: id,
+                            success: function(data, status, xhr) {
+                                $("div.alert-success").html("<strong>Success:</strong> Message deleted");
+                                $("div.alert-success").fadeIn(300).delay(2500).fadeOut(500);
+                                loadReceiveMessages();
+                            },
+                            error: function(xhr, status, err) {
+                                $("div.alert-danger")
+                                    .html("<strong>Failure:</strong> There was an issue with the server: " + err);
+                                $("div.alert-danger").fadeIn(300);
+                            }
+                        });
+                        event.preventDefault();
+                    }
+
+                });
+
+    </script>
+    <script src="~/Scripts/plugins/jquery.sieve.min.js"></script>
+    <script>
+                $(document)
+                    .ready(function() {
+                        $("table.sieve").sieve();
+                    });
+    </script>
+}

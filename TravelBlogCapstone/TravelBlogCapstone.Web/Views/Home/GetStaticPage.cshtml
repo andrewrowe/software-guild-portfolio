@@ -1,0 +1,10 @@
+﻿@model TravelBlogCapstone.Models.StaticPage
+@{
+    ViewBag.Title = Model.Title;
+}
+
+@section staticPage
+{
+    @Html.Raw(Model.PageContent)
+}
+

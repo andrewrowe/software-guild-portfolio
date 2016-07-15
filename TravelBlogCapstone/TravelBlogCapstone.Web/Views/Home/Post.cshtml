@@ -1,0 +1,39 @@
+﻿@model TravelBlogCapstone.Models.Post
+
+@{
+    ViewBag.Title = "Post";
+}
+
+    <h2>@Model.Title</h2>
+    <div class="row">
+        <div class="col-xs-12">
+            <b>@Model.PublishedDate.Date.ToString("D")</b>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <b>Categories: </b>
+                    @foreach (var category in Model.Categories)
+                    {
+                        @category.CategoryName<span>&nbsp;</span>
+                    }
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    @Html.Raw(Model.PostContent)
+                </div>
+            </div>
+            <br/>
+            <hr/>
+            <div class="row">
+                <div class="col-xs-12">
+                    Tags:
+                    @foreach (var tag in Model.Tags)
+                    {
+                        @tag.TagName<span>&nbsp;</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,31 @@
+﻿<div class="modal" id="addCategoryModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel">
+    <form id="AddCategoryForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Cateory</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-10">
+
+                            <input type="hidden" id="postId" />
+
+                            <div class="form-group">
+                                <label>Category</label>
+                                <input type="text" id="category" class="form-control" name="category"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="margin-bottom: 0px; width: 10%" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSaveCategory" class="btn btn-primary" style="width: 15%">Add Category</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

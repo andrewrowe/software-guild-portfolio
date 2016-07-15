@@ -1,0 +1,55 @@
+﻿@model TravelBlogCapstone.Web.ViewModels.UserProfile
+
+@{
+    ViewBag.Title = "Update Settings";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="row">
+    <p class="text-success" style="font-size: large; padding-left: 20px;">@ViewBag.StatusMessage</p>
+    <hr/>
+    
+    <div class="col-xs-12 col-sm-3" id="avatar">
+        <img src="../../images/avatarBlue.png" alt="Avatar Icon" style="width: 200px; height: 200px;">
+    </div>
+
+    <div class="col-xs-12 col-sm-5">
+
+
+        <dl class="dl-horizontal small-width">
+            <dt>First Name:</dt>
+            <dd><a class="changeFirstName" href="/User/ChangeFirstName/@Model.ApplicationUser.FirstName"><i class="glyphicon glyphicon-pencil user-setting"></i></a> @Model.ApplicationUser.FirstName</dd>
+            <dt>Last Name:</dt>
+            <dd><a class="changeLastName" href="/User/ChangeLastName/@Model.ApplicationUser.LastName"><i class="glyphicon glyphicon-pencil user-setting"></i></a> @Model.ApplicationUser.LastName</dd>
+            <dt>Age:</dt>
+            <dd><a class="changeAge" href="/User/ChangeAge/@Model.ApplicationUser.Age"><i class="glyphicon glyphicon-pencil user-setting"></i></a> @(Model.ApplicationUser.Age == null ? "Not defined" : Model.ApplicationUser.Age + " years old") </dd>
+            <dd><br /></dd>
+            <dt>E-Mail:</dt>
+            <dd style="margin-left: 159px">@Model.ApplicationUser.Email</dd>
+            <dt>User Name:</dt>
+            <dd style="margin-left: 159px">@Model.ApplicationUser.UserName</dd>
+            <dt>Password:</dt>
+            <dd><a class="changePassword" href="/Manage/ChangePassword"><i class="glyphicon glyphicon-pencil user-setting"></i></a> ********</dd>
+
+        </dl>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <dl class="dl-horizontal" id="message-div">
+            <dt style="width: initial">Send a message  <a class="SendAMessage" href="/User/SendAMessage"><i class="glyphicon glyphicon-envelope user-setting"></i></a></dt>
+            <dt style="width: initial"><a class="ReceiveMessages" href="/User/ReceiveMessages/@Model.ApplicationUser.UserName">Inbox (@Model.NumberNoReadMessages)</a></dt>
+            <dt style="width: initial"><a class="SendMessages" href="/User/SendMessages/@Model.ApplicationUser.UserName">Outbox</a></dt>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-3" id="label-biography">
+
+        <a class="changeBiography" href="/User/ChangeBio"><i class="glyphicon glyphicon-pencil user-setting"></i></a>
+       Biography:
+    </div>
+    <div class="col-xs-7" id="biography">
+        <p style="padding-top: 10px">
+            @Html.Raw(Model.ApplicationUser.Bio)
+        </p>
+    </div>    
+</div>

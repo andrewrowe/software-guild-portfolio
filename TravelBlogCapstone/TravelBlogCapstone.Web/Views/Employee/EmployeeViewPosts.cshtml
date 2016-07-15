@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "My Posts";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_ViewPostModal")
+    </div>
+</div>
+
+<div class="alert alert-success" style="display: none;"></div>
+<div class="alert alert-danger" style="display: none;"></div>
+
+<div class="row">
+    <div class="col-sm-7">
+        <table class="table table-responsive" id="approvedPosts">
+            <thead>
+                <tr>
+                    <th style="width: 25%">Published?</th>
+                    <th style="width: 60%">Post</th>
+                    <th style="width: 15%">Edit</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <div class="text-center">
+            <button class="btn btn-primary" id="showAllButton" style="display: none">Show All</button>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/scripts/EmployeeViewPosts.js"></script>
+}

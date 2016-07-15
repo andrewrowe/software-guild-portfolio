@@ -1,0 +1,53 @@
+﻿@model TravelBlogCapstone.Web.Models.ApplicationUser
+
+@{
+    ViewBag.Title = @Model.UserName;
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="row">
+    <hr/>
+    <div class="col-xs-12 col-sm-3" id="avatar">
+        <img src="../../images/avatarBlue.png" alt="Avatar Icon" style="width: 200px; height: 200px;">
+    </div>
+
+    <div class="col-xs-12 col-sm-5">
+
+
+        <dl class="dl-horizontal small-width">
+            <dt>First Name:</dt>
+            <dd> @Model.FirstName</dd>
+            <dt>Last Name:</dt>
+            <dd> @Model.LastName</dd>
+            <dt>Age:</dt>
+            <dd> @(Model.Age == null ? "" : Model.Age + " years old") </dd>
+            <dd><br/></dd>
+            <dt>E-Mail:</dt>
+            <dd> @Model.Email</dd>
+            <dt>User Name:</dt>
+            <dd> @Model.UserName</dd>
+
+        </dl>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+        <dl class="dl-horizontal" id="message-div">
+            <dt style="width: initial">Message to @Model.UserName <a class="SendAMessage" href="/User/SendAMessage/@Model.UserName"><i class="glyphicon glyphicon-envelope user-setting"></i></a></dt>
+        </dl>
+    </div>
+</div>
+@if (Model.Bio != null)
+{
+    <div class="row">
+        <div class="col-xs-3" id="label-biography">
+            Biography:
+        </div>
+        <div class="col-xs-7" id="biography">
+            <p style="padding-top: 10px">
+                @Html.Raw(Model.Bio)
+            </p>
+        </div>
+    </div>
+}
+

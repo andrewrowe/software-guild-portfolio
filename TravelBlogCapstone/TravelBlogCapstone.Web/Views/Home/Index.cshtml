@@ -1,0 +1,58 @@
+﻿@model List<TravelBlogCapstone.Models.Post>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    .blogPostSelect:hover {
+    background-color: #DCDCDC;
+}
+    a {
+        text-decoration: none !important;
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <h1 style="text-align: center;">Oasis Destination</h1>
+
+    @foreach (var post in Model)
+    {
+        <a href="@Url.Action("Post", "Home", new {@id = post.Id})">
+            <div class="row blogPostSelect">
+                <div class="col-xs-12">
+                    <h2>@Html.DisplayTextFor(m => post.Title)</h2>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <b>@post.PublishedDate.Date.ToString("D")</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <p class="postContent">
+                                @if (post.PostContent.Length > 1000)
+                                {
+                                    @Html.Raw(post.PostContent.Substring(0, 1000))
+                                    @: ...
+                                }
+                                else
+                                {
+                                    @Html.Raw(post.PostContent)
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+</div>
+
+@section scripts{
+<script>
+        $(document)
+            .ready(function() {
+                $("img").remove();
+            });
+</script>
+}

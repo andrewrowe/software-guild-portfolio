@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Employee Home";
+}
+
+@section styles{
+    <link href="~/Styles/adminIndex.css" rel="stylesheet" />
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+
+<div class="alert alert-success" style="display: none;"></div>
+<div class="alert alert-danger" style="display: none;"></div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-4">
+        @Html.ActionLink("Create Post", "CreatePost", "Employee", null, new {@class = "btn btn-primary btn-lg outline menuButton"})
+        <br/>
+        @Html.ActionLink("View Posts", "EmployeeViewPosts", "Employee", null, new {@class = "btn btn-primary btn-lg outline menuButton"})
+        <br/>
+
+    </div>
+    <div class="col-xs-12 col-sm-8">
+        <table class="table table-responsive" id="pendingPosts">
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Post</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+
+        <div class="text-center">
+            <button class="btn btn-primary" id="showAllButton" style="display: none">Show All</button>
+        </div>
+
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/scripts/EmployeeIndex.js"></script>
+}

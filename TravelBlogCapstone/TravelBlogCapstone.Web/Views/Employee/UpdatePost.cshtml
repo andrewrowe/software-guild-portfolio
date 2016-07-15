@@ -1,0 +1,158 @@
+﻿@model TravelBlogCapstone.Web.Models.EditPostVM
+@{
+    ViewBag.Title = "Update Post";
+}
+
+<script src="https://cdn.tinymce.com/4/tinymce.min.js"></script>
+<link href="~/Styles/createPostStyles.css" rel="stylesheet" />
+<link href="~/Scripts/bootstrap-tagmanager.css" rel="stylesheet" />
+<script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea',
+        file_browser_callback: function(field_name, url, type, win) {
+            win.document.getElementById(field_name).value = 'my browser value';
+        },
+        theme_advanced_resizing: true,
+        theme_advanced_resizing_use_cookie: false,
+        width: '100%',
+        resize: 'vertical',
+        theme: 'modern',
+        plugins: [
+            'advlist autolink autoresize lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools'
+        ],
+        toolbar1:
+            'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons',
+        image_advtab: true,
+        templates: [
+            { title: 'Test template 1', content: 'Test 1' },
+            { title: 'Test template 2', content: 'Test 2' }
+        ],
+        content_css: [
+            '//fast.fonts.net/cssapi/e6dc9b99-64fe-4292-ad98-6974f93cd2a2.css',
+            '//www.tinymce.com/css/codepen.min.css'
+        ]
+    });
+</script>
+
+@if (Model.Post.Remark != null)
+{
+    <div id="remarks">
+        Remark: @Model.Post.Remark
+        <br/>
+        <br/>
+    </div>
+}
+@Html.ValidationSummary()
+<form method="post" id="createPostForm">
+        @Html.HiddenFor(m=>m.Post.Id)
+        @Html.HiddenFor(m => m.Post.StatusId)
+        @Html.HiddenFor(m => m.Post.UserId)
+    <div class="row">
+        <div class="col-sm-7" style="padding: 0px;">
+            @Html.TextBoxFor(m=>m.Post.Title, new {style = "width: 100%"})
+        </div>
+        <div style="padding: 0px; float: right;">
+            @Html.DropDownListFor(m=>m.StatusId, Model.StatusList)
+            <input id="submitPost" type="submit" value="Update" class="btn btn-primary btn-lg outline" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div>
+            @Html.TextAreaFor(m=>m.Post.PostContent)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div>
+            <input type="text" id="tags" name="tags" placeholder="Tags" class="tm-input" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-2">
+            <p>Post Date:</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Categories:</p>
+        </div>
+        <div class="col-sm-3">
+            <p>Expire Date:</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 col-sm-offset-2">
+            @Html.EditorFor(m=>m.Post.PublishedDate)
+        </div>
+        <div class="col-sm-3">
+           @Html.ListBoxFor(m=>m.CategoryIds, Model.Categories)
+        </div>
+        <div class="col-sm-3">
+            @Html.EditorFor(m => m.Post.ExpiredDate)
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/scripts/jquery-validate-defaults.js"></script>
+    <script src="~/Scripts/scripts/CreatePostValidate.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/typeahead.js"></script>
+
+    <script src="~/Scripts/jquery.tagsmanager.js"></script>
+    <script>
+        $(document)
+            .ready(function () {
+                $('<option value="4">Save Draft</option>').appendTo($('#submissionOptions'));
+                $('<option value="2">Send for Approval</option>').appendTo($('#submissionOptions'));
+
+
+                var countries = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.whitespace,
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    // url points to a json file that contains an array of country names, see
+                    // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+                    prefetch: '../api/Post/GetTags'
+                });
+
+                var tagApi = $(".tm-input").tagsManager({
+                    prefilled: [
+                      @Html.Raw(String.Join(", ", (Model.Post.Tags.Select(t => string.Format("\"{0}\"", t.TagName)))))
+                    ],
+
+                    hiddenTagListName: 'tagsArray',
+                    delimiters: [9, 13, 44]
+                });
+                $(".tm-input").typeahead(null, {
+                    name: 'countries',
+                    source: countries.ttAdapter()
+                }).on('typeahead:selected', function (e, d) {
+                    tagApi.tagsManager("pushTag", d.name);
+
+                });
+
+                jQuery(".tm-input").on('tm:pushed', function (e, tag) {
+                    jQuery("#tags").val("");
+                    jQuery(".tt-suggestion").val("");
+                    jQuery(".tt-menu").hide();
+                    $('.tm-input').typeahead('setQuery', '');
+
+                });
+                
+
+                @*$(".tm-input").tagsManager({
+                    prefilled: [
+                      @Html.Raw(String.Join(", ", (Model.Post.Tags.Select(t => string.Format("\"{0}\"", t.TagName)))))
+                    ],
+                    hiddenTagListName: 'tagsArray',
+                    delimiters: [9, 13, 44]
+                });*@
+            });
+    </script>
+
+}

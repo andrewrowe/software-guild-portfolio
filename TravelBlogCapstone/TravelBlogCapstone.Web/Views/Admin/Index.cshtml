@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Admin Home";
+}
+@section styles{
+    <link href="~/Styles/adminIndex.css" rel="stylesheet" />
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_RemarkModal")
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_AddCategoryModal")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_ViewPostModal")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_StaticPagesModal")
+    </div>
+</div>
+
+
+<div class="alert alert-success" style="display: none;"></div>
+<div class="alert alert-danger" style="display: none;"></div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-4">
+        @Html.ActionLink("Create Post", "CreatePost", "Employee", null, new {@class= "btn btn-primary btn-lg outline menuButton" })
+        <br/>
+        @Html.ActionLink("Manage Posts", "ManagePosts", "Admin", null, new { @class = "btn btn-primary btn-lg outline menuButton" })
+        <br/>
+        @Html.ActionLink("Manage Roles", "ManageRoles", "Admin", null, new { @class = "btn btn-primary btn-lg outline menuButton" })
+        <br/>
+        <button class = "btn btn-primary btn-lg outline menuButton" id="staticPageButton">Manage Pages</button>
+        <br/>
+        <button class="btn btn-primary btn-lg outline menuButton" id="addCategoryButton">Add Category</button>
+       
+
+    </div>
+    <div class="col-xs-12 col-sm-8">
+        <table class="table table-responsive" id="pendingPosts">
+            <thead>
+            <tr>
+                <th>Status</th>
+                <th>Post</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <i class="glyphicon glyphicon-repeat red"></i> - Send Back to Draft <br/>
+        <i class="glyphicon glyphicon-ok green"></i> - Approve <br/>
+        
+        <div class="text-center">
+            <button class="btn btn-primary btn-lg outline" id="showAllButton" style="display: none">Show All</button>
+        </div>
+       
+    </div>
+
+</div>
+
+
+
+@section scripts{
+  
+    <script src="~/Scripts/scripts/AdminIndex.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/scripts/jquery-validate-defaults.js"></script>
+    <script src="~/Scripts/scripts/AdminIndexValidation.js"></script>
+}

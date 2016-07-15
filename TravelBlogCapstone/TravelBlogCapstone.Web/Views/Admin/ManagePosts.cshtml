@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Manage Posts";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_RemarkModal")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        @Html.Partial("_ViewPostModal")
+    </div>
+</div>
+
+<div class="alert alert-success" style="display: none;"></div>
+<div class="alert alert-danger" style="display: none;"></div>
+<h2>Manage Posts</h2>
+<hr />
+
+<div class="col-xs-12">
+    <table class="table table-responsive sieve" id="pendingPosts">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Post</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <i class="glyphicon glyphicon-repeat black"></i> - Send Back to Draft <br />
+    <i class="glyphicon glyphicon-ok green"></i> - Approve <br/>
+    <i class="glyphicon glyphicon-remove red"></i> - Delete <br />
+
+    <div class="text-center">
+        <button class="btn btn-primary btn-lg outline" id="showAllButton" style="display: none">Show All</button>
+    </div>
+
+</div>
+
+
+
+@section scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/scripts/AdminManagePosts.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/scripts/jquery-validate-defaults.js"></script>
+    <script src="~/Scripts/scripts/AdminIndexValidation.js"></script>
+    <script src="~/Scripts/plugins/jquery.sieve.min.js"></script>
+    <script>
+            $(document)
+                .ready(function() {
+                    $("table.sieve").sieve();
+                });
+    </script>
+}

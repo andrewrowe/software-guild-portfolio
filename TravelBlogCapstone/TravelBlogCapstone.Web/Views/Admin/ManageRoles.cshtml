@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "ManageRoles";
+}
+
+<h2>Manage Roles</h2>
+<hr />
+
+<div class="alert alert-success" style="display: none;"></div>
+<div class="alert alert-danger" style="display: none;"></div>
+
+
+
+<div class="row">
+
+    <div class="col-xs-12">
+        <table class="table table-responsive sieve" id="tableRoles">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <i class="glyphicon glyphicon-trash" style="color:grey"></i> - Delete User <br />
+        <i class="glyphicon glyphicon-chevron-up" style="color:dodgerblue"></i> - Upgrade User <br />
+        <i class="glyphicon glyphicon-chevron-down" style="color: red"></i> - Downgrade Employee <br/>
+        <i class="glyphicon glyphicon-asterisk" style="color:dodgerblue"></i> - Make Admin <br />
+        <i class="glyphicon glyphicon-arrow-down red"></i> - Downgrade Admin <br />
+
+    </div>
+
+</div>
+
+
+@section scripts{
+
+    <script src="~/Scripts/scripts/AdminRolesTable.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/scripts/jquery-validate-defaults.js"></script>
+    <script src="~/Scripts/scripts/RemarkValidation.js"></script>
+    <script src="~/Scripts/plugins/jquery.sieve.min.js"></script>
+    <script>
+            $(document)
+                .ready(function() {
+                    $("table.sieve").sieve();
+                });
+    </script>
+}

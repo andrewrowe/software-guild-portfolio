@@ -1,0 +1,39 @@
+﻿@model TravelBlogCapstone.Models.Message
+
+@{
+    ViewBag.Title = "DisplayAMessage";
+}
+
+<h2>Message from <a href=@Url.Action("DisplayAnotherProfile", "User", new {id = @Model.SenderUserName})>@Model.SenderUserName</a></h2>
+<hr />
+<div class="row">
+    <div class="col-xs-9">
+        <p><b>Send Date:</b><br/>@Html.DisplayFor(m => m.SendDate)</p>
+        <p><b>Subject</b>:<br/>@Model.Subject</p>
+        <div class="col-xs-2">
+            <span style="line-height: 50px;padding-left: 18px">Reply</span> <a class="answerMessage" href=@Url.Action("AnswerAMessage", "User", new {id = @Model.Id})><i class="glyphicon glyphicon-share-alt red" id="answerLink"></i></a>
+        </div>
+        <div class="col-xs-10" id="body-diplay-message">
+            @Html.Raw(Model.Body)
+        </div>
+    </div>
+    <div class="col-xs-3">
+        @if (ViewBag.Previous == "Receive")
+        {
+            <a href="/User/ReceiveMessages/@Model.SenderUserName">
+                <i class="glyphicon glyphicon-circle-arrow-left" style="padding-left: 28%"></i>
+            </a>
+            <br/>
+            <a href="/User/ReceiveMessages/@Model.SenderUserName">Go Back to Messages</a>;
+        }
+        else
+        {
+            <a href="/User/SendMessages/@Model.SenderUserName">
+                <i class="glyphicon glyphicon-circle-arrow-left" style="padding-left: 28%"></i>
+            </a>
+            <br/>
+            <a href="/User/SendMessages/@Model.SenderUserName">Go Back to Messages</a>;
+        }
+
+    </div>
+</div>

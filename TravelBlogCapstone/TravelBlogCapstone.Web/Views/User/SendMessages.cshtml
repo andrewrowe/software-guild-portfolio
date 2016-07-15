@@ -1,0 +1,115 @@
+﻿@using System.ServiceModel.Activities
+@model List<TravelBlogCapstone.Models.Message>
+
+@{
+    ViewBag.Title = "SendMessages";
+}
+
+<h2>Send Messages</h2>
+<hr />
+
+<div class="row">
+    <div class="col-xs-12 col-sm-8">
+        <table class="table table-responsive sieve" id="sendMessages">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>To</th>
+                <th>Subject</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <i class="glyphicon glyphicon-trash" style="color: grey"></i> - Delete <br/>
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/moment.min.js"></script>
+
+    <script>
+        var uri = '/api/user/getSendMessages';
+
+        $(document)
+            .ready(function() {
+                loadSendMessages();
+            });
+
+        function loadSendMessages() {
+            $.getJSON(uri)
+                .done(function(data) {
+                    $('#sendMessages tbody tr').remove();
+                    $.each(data,
+                        function(index, messageViewModel) {
+                            $(createRow(messageViewModel)).appendTo($('#sendMessages tbody'));
+                        });
+
+                });
+        };
+
+        function createRow(sendMessage) {
+
+            return '<tr><td>' +
+                moment(sendMessage.Message.SendDate).format('MMM Do, YYYY') +
+                '</td><td>' +
+                '<a href=@Url.Action("DisplayAnotherProfile", "User")/' +
+                sendMessage.UserName +
+                ' class="postLink">' +
+                sendMessage.UserName +
+                '</a>' +
+                " (" +
+                sendMessage.Email +
+                ")" +
+                '</td><td>' +
+                '<a href=@Url.Action("DisplayAMessage", "User")/' +
+                sendMessage.Message.Id +
+                ' class="postLink">' +
+                sendMessage.Message.Subject +
+                '</a>' +
+                '</td><td style="text-align: center;">' +
+                '<a class="deleteMessage" href="#" data-value="' +
+                sendMessage.Message.Id +
+                '"><i class="glyphicon glyphicon-trash" style="color:grey"></i></a>' +
+                '</td></tr>';
+        };
+
+        $("#sendMessages")
+            .on("click",
+                ".deleteMessage",
+                function(event) {
+                    if (confirm("Are you sure to delete?")) {
+
+                        var id = ($(this).attr("data-value"));
+                        $.ajax({
+                            url: '/api/user/deleteSendMessage/' + id,
+                            type: 'PUT',
+                            dataType: 'json',
+                            data: id,
+                            success: function(data, status, xhr) {
+                                $("div.alert-success").html("<strong>Success:</strong> Message deleted");
+                                $("div.alert-success").fadeIn(300).delay(2500).fadeOut(500);
+                                loadSendMessages();
+                            },
+                            error: function(xhr, status, err) {
+                                $("div.alert-danger")
+                                    .html("<strong>Failure:</strong> There was an issue with the server: " + err);
+                                $("div.alert-danger").fadeIn(300);
+                            }
+                        });
+                        event.preventDefault();
+                    }
+                });
+
+    </script>
+    <script src="~/Scripts/plugins/jquery.sieve.min.js"></script>
+    <script>
+                $(document)
+                    .ready(function() {
+                        $("table.sieve").sieve();
+                    });
+    </script>
+}

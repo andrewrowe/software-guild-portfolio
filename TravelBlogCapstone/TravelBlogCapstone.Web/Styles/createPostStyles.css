@@ -1,0 +1,35 @@
+﻿@import url('demo.css');
+@import url('font-awesome.css');
+
+#tags {
+    /*width: 10%;*/
+}
+ 
+#postTitle { 
+    height: 25px; 
+    width: 275px; 
+    background-color: transparent;  
+    border-style: solid;  
+    border-width: 0px 0px 1px 0px;  
+    border-color:black; 
+    outline:0; 
+  } 
+
+#pageTitle { 
+    height: 25px; 
+    width: 275px; 
+    background-color: transparent;  
+    border-style: solid;  
+    border-width: 0px 0px 1px 0px;  
+    border-color:black; 
+    outline:0; 
+  } 
+
+.btn {
+    height: 30px;
+    margin: 0px;
+    padding-top: 5px !important;
+    padding-right: 30px !important;
+    padding-bottom: 12px !important;
+    padding-left: 35px !important;
+}

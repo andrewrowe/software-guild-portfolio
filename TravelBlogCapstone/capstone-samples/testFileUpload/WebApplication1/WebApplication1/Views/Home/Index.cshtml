@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<textarea id="content"></textarea>
+
+<input type="text" name="tags" placeholder="Tags" class="tm-input" />
+
+
+@section scripts{
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/jquery.tagsmanager.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector: "textarea#content",
+            theme: "modern",
+            height: 300,
+            plugins: [
+                    "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                    "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                    "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            content_css: "css/metro-bootstrap.min.css",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+            file_browser_callback: function (field, url, type, win) {
+                tinyMCE.activeEditor.windowManager.open({
+                    url: '/FileBrowser/FileBrowser.aspx?caller=tinymce4&langCode=en&type=' + type,
+                    title: 'File Browser',
+                    width: 700,
+                    height: 500,
+                    inline: true,
+                    close_previous: false
+                }, {
+                    window: win,
+                    field: field
+                });
+                return false;
+            }
+
+        });
+
+
+        jQuery(".tm-input").tagsManager();
+</script>
+
+
+}

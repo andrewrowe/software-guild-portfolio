@@ -1,0 +1,93 @@
+﻿@model TravelBlogCapstone.Web.ViewModels.PostsAndCategoriesViewModel
+
+@{
+    ViewBag.Title = "Posts";
+}
+<style>
+    .blogPostSelect:hover {
+        background-color: #DCDCDC;
+    }
+
+    a {
+        text-decoration: none !important;
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <div align="right">
+        Categories
+        <select id="categorySelect">
+            <option value="0">All</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.CategoryName</option>
+            }
+        </select>
+    </div>
+    <table class="sieve">
+        @foreach (var post in Model.Posts)
+        {
+            <tr class="blogPostSelect" data-id="@foreach (var category in post.Categories)
+                                      {
+                                          @category.Id
+                                          @:_
+                                      } ">
+                <td>
+                    <div class="row">
+                        <a href="@Url.Action("Post", "Home", new {@id = post.Id})">
+                            <div class="col-xs-12">
+                                <h2>@Html.DisplayTextFor(m => post.Title)</h2>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <b>@post.PublishedDate.Date.ToString("D")</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p class="postContent">
+                                            @if (post.PostContent.Length > 750)
+                                            {
+                                                @Html.Raw(post.PostContent.Substring(0, 750))
+                                                @: ...
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(post.PostContent)
+                                            }
+                                        </p>
+                                        <p>  
+                                        <strong>Tags: </strong> 
+                                        @foreach (var tag in post.Tags)
+                                        {
+                                            @Html.DisplayTextFor(m => tag.TagName)
+                                            <span>&nbsp;</span>
+                                        }</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+@section scripts {
+    <script src="~/Scripts/plugins/jquery.sieve.min.js"></script>
+    <script>
+        $(document)
+            .ready(function() {
+                $("table.sieve").sieve();
+            });
+    </script>
+    <script>
+        $(document)
+            .ready(function() {
+                $("img").remove();
+            });
+    </script>
+    <script src="~/Scripts/scripts/filterDropDownResults.js"></script>
+}
