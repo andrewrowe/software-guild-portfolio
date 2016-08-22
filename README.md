@@ -15,10 +15,10 @@ Skills Showcased:
 N-Tier Architecture - Project is separated into BLL, Data, Models, UI, and Test layers.
 Dependency injection/Interfaces - Multiple factory classes and interfaces are used to switch between product, tax rate, 
 and order repositories. Also used to change workflows based on user input.
-File I/O - Orders are saved to and read from text files. Products and tax rates are read form text files. 
+File I/O - Orders are saved to and read from text files. Products and tax rates are read from text files. 
 Creates and deletes text files for orders as needed.
 LINQ - Lambda expressions used to select orders, products, and tax rates from lists.
-Error handling - Try/Catch statements used in the BLL that logs errors when they occur.
+Error handling - Try/Catch statements used in the BLL that logs errors to a separate file when they occur.
 Unit tests - N-Unit used to test BLL and Data layer methods.
 
 DVDLibrary - ASP.NET MVC Website
@@ -45,4 +45,4 @@ All of the skills listed for DVDLibrary as well as...
 Dependency Injection - Ninject used to switch between mock/real data repositories.
 Dapper - Used to map data from our database onto our models in C#.
 Microsoft Identity - Controlled views displayed and permissions based on user role.
-Entity Framework - Used to implement Microsoft Identity on our database (Enable-Migrations, Add-Migration, Update Database).
+Entity Framework - Used to implement Microsoft Identity on our database from our code (Enable-Migrations, Add-Migration, Update Database).
