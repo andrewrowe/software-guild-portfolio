@@ -1,4 +1,4 @@
-# portfolio
+# Software Guild Portfolio
 Some highlights from my time at The Software Guild
 
 All projects began with a design phase including the making of wireframes, workflows, stories/tasks and data models as needed.
